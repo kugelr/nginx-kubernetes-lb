@@ -1,0 +1,20 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: arrayify
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        name: arrayify-pods
+    spec:
+      containers:
+      - image: <DOCKERHUB-ID>/<REPOSITORY>:<TAG>
+        name: arrayify-container
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+          name: http-server
+      nodeSelector:
+        type: worker

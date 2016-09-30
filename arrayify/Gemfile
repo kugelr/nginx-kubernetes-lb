@@ -14,3 +14,4 @@
 
 source 'https://rubygems.org'
 gem 'webrick'
+gem 'redis', '~>3.2'

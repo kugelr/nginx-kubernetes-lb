@@ -1,0 +1,20 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: reverse
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        name: reverse-pods
+    spec:
+      containers:
+      - image: <DOCKERHUB-ID>/<REPOSITORY>:<TAG>
+        name: reverse-container
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+          name: http-server
+      nodeSelector:
+        type: worker

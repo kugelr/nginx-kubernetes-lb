@@ -1,0 +1,20 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: toupper
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        name: toupper-pods
+    spec:
+      containers:
+      - image: <DOCKERHUB-ID>/<REPOSITORY>:<TAG>
+        name: toupper-container
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+          name: http-server
+      nodeSelector:
+        type: worker

@@ -1,0 +1,20 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: redis
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: redis-pods
+    spec:
+      containers:
+      - image: redis
+        name: redis-container
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 6379
+          name: redis-server
+      nodeSelector:
+        type: database

@@ -1,0 +1,20 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: tolower
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        name: tolower-pods
+    spec:
+      containers:
+      - image: <DOCKERHUB-ID>/<REPOSITORY>:<TAG>
+        name: tolower-container
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+          name: http-server
+      nodeSelector:
+        type: worker

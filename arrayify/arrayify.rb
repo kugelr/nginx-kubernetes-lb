@@ -13,8 +13,11 @@
 # limitations under the License.
 
 require 'webrick'
+require 'redis'
+require 'socket'
 
 server = WEBrick::HTTPServer.new(:Port => 80)
+$redis = Redis.new(:host => "<IP-ADRESSE>", :port => 6379)
 
 class MyServlet < WEBrick::HTTPServlet::AbstractServlet
     def do_GET (request, response)
@@ -23,11 +26,14 @@ class MyServlet < WEBrick::HTTPServlet::AbstractServlet
 			request.query["str"].each_char do |char|
 				strArray.push(char)
 			end
+			time = Time.new
+			key = "arrayify--" + time.min.to_s + "--" + time.sec.to_s + "--" + time.usec.to_s
+			$redis.set(key, strArray.to_s)
 			response.body = strArray.to_s
 		else
 			response.body = ""
     	end
-    end
+    end	
 end
 
 server.mount "/", MyServlet
